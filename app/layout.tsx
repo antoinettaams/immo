@@ -7,16 +7,16 @@ import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// ✅ CONFIGURATION DU VIEWPORT
+// ✅ CONFIGURATION DU VIEWPORT (Mobile Responsive)
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
 };
 
-// ✅ CONFIGURATION DES MÉTADONNÉES
+// ✅ CONFIGURATION DES MÉTADONNÉES (SEO + LOGOS)
 export const metadata: Metadata = {
-  // 1. Corrige l'erreur "metadataBase property is not set"
+  // Supprime l'alerte console et aide Google à trouver vos images
   metadataBase: new URL('https://immo-benin.com'),
 
   title: 'ImmoBenin - Louez ou proposez des espaces au Bénin',
@@ -26,16 +26,20 @@ export const metadata: Metadata = {
   creator: 'ImmoBenin',
   publisher: 'ImmoBenin',
 
-  // 2. CONFIGURATION DU LOGO DANS L'ONGLET (Favicon)
+  // ✅ CONFIGURATION DES ICÔNES (Onglet + Moteurs de recherche)
   icons: {
     icon: [
       { url: '/logo.png', type: 'image/png' },
       { url: '/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo.png', sizes: '192x192', type: 'image/png' },
     ],
     shortcut: '/logo.png',
-    apple: '/logo.png', // Pour l'affichage sur iPhone/Safari
+    apple: [
+      { url: '/logo.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
 
+  // ✅ RÉFÉRENCEMENT (SEO)
   robots: {
     index: true,
     follow: true,
@@ -43,6 +47,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://immo-benin.com',
   },
+
+  // ✅ PARTAGE SUR LES RÉSEAUX (WhatsApp, Facebook, Google Search)
   openGraph: {
     title: 'ImmoBenin',
     description: 'Location de propriétés au Bénin',
@@ -53,11 +59,17 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/logo.png',
-        width: 800,
-        height: 600,
-        alt: 'Logo ImmoBenin',
+        width: 1200,
+        height: 630,
+        alt: 'ImmoBenin Logo',
       },
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ImmoBenin',
+    description: 'Location de propriétés au Bénin',
+    images: ['/logo.png'],
   },
 };
 
@@ -67,7 +79,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr">
+    <html lang="fr" className="scroll-smooth">
       <head>
         {/* Google Analytics */}
         <Script
