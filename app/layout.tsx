@@ -16,7 +16,6 @@ export const viewport: Viewport = {
 
 // ✅ CONFIGURATION DES MÉTADONNÉES (SEO + LOGOS)
 export const metadata: Metadata = {
-  // Supprime l'alerte console et aide Google à trouver vos images
   metadataBase: new URL('https://immo-benin.com'),
 
   title: 'ImmoBenin - Louez ou proposez des espaces au Bénin',
@@ -26,20 +25,25 @@ export const metadata: Metadata = {
   creator: 'ImmoBenin',
   publisher: 'ImmoBenin',
 
-  // ✅ CONFIGURATION DES ICÔNES (Onglet + Moteurs de recherche)
+  // ✅ CONFIGURATION DES ICÔNES - VERSION AMÉLIORÉE AVEC PLUSIEURS TAILLES
   icons: {
     icon: [
+      // Petites tailles pour l'onglet
+      { url: '/logo-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo-64x64.png', sizes: '64x64', type: 'image/png' },
+      // Grandes tailles pour les écrans HD
+      { url: '/logo-128x128.png', sizes: '128x128', type: 'image/png' },
+      { url: '/logo-192x192.png', sizes: '192x192', type: 'image/png' },
+      // Format par défaut (le plus grand)
       { url: '/logo.png', type: 'image/png' },
-      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
-      { url: '/logo.png', sizes: '192x192', type: 'image/png' },
     ],
-    shortcut: '/logo.png',
+    shortcut: '/logo-64x64.png',
     apple: [
-      { url: '/logo.png', sizes: '180x180', type: 'image/png' },
+      { url: '/logo-180x180.png', sizes: '180x180', type: 'image/png' },
+      { url: '/logo.png', sizes: '180x180', type: 'image/png' }, // Fallback
     ],
   },
 
-  // ✅ RÉFÉRENCEMENT (SEO)
   robots: {
     index: true,
     follow: true,
@@ -48,7 +52,7 @@ export const metadata: Metadata = {
     canonical: 'https://immo-benin.com',
   },
 
-  // ✅ PARTAGE SUR LES RÉSEAUX (WhatsApp, Facebook, Google Search)
+  // ✅ POUR LES RÉSEAUX SOCIAUX - UTILISE UNE GRANDE IMAGE
   openGraph: {
     title: 'ImmoBenin',
     description: 'Location de propriétés au Bénin',
@@ -58,7 +62,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/logo.png',
+        url: '/logo-1200x630.png', // Image spéciale pour les réseaux
         width: 1200,
         height: 630,
         alt: 'ImmoBenin Logo',
@@ -69,7 +73,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'ImmoBenin',
     description: 'Location de propriétés au Bénin',
-    images: ['/logo.png'],
+    images: ['/logo-1200x630.png'],
   },
 };
 
