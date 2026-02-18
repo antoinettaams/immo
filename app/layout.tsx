@@ -7,7 +7,7 @@ import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// ✅ POUR LE RESPONSIVE MOBILE
+// ✅ POUR LE RESPONSIVE MOBILE (corrige l'affichage téléphone)
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -17,6 +17,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'ImmoBenin - Louez ou proposez des espaces au Bénin',
   description: 'Maisons, appartements meublés, bureaux, salles d\'événements ou terrains. Trouvez l\'endroit idéal ou rentabilisez le vôtre.',
+  // ✅ AJOUTE CES LIGNES POUR LE SEO
   keywords: 'location Bénin, maison à louer Cotonou, bureau Porto-Novo, salle événement, terrain',
   authors: [{ name: 'ImmoBenin' }],
   creator: 'ImmoBenin',
@@ -29,18 +30,7 @@ export const metadata: Metadata = {
     canonical: 'https://immo-benin.com',
   },
   
-  // ✅ POUR L'ONGLET DU NAVIGATEUR (favicon)
-  icons: {
-    icon: [
-      { url: '/logo.png', type: 'image/png' },
-      { url: '/favicon.ico', sizes: 'any' },
-    ],
-    apple: [
-      { url: '/logo.png', type: 'image/png' },
-    ],
-  },
-
-  // ✅ POUR GOOGLE ET LES RÉSEAUX SOCIAUX (même logo)
+  // ✅ POUR L'IMAGE DANS GOOGLE (Open Graph)
   openGraph: {
     title: 'ImmoBenin - Location au Bénin',
     description: 'Trouvez votre prochain logement ou espace au Bénin',
@@ -48,7 +38,7 @@ export const metadata: Metadata = {
     siteName: 'ImmoBenin',
     images: [
       {
-        url: '/logo.png',
+        url: '/logo.png', // Votre logo PNG dans public/
         width: 1200,
         height: 630,
         alt: 'ImmoBenin - Location de propriétés au Bénin',
@@ -58,12 +48,17 @@ export const metadata: Metadata = {
     type: 'website',
   },
 
-  // ✅ POUR TWITTER
+  // ✅ POUR TWITTER (optionnel)
   twitter: {
     card: 'summary_large_image',
     title: 'ImmoBenin',
     description: 'Louez ou proposez des espaces au Bénin',
     images: ['/logo.png'],
+  },
+
+  // ✅ POUR L'ONGLET (favicon par défaut)
+  icons: {
+    icon: '/favicon.ico', // Optionnel
   },
 };
 
@@ -75,7 +70,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-        {/* Google Analytics */}
+        {/* Google Analytics - Placé directement après head */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-EDT735L9C3"
           strategy="afterInteractive"
@@ -89,10 +84,11 @@ export default function RootLayout({
           `}
         </Script>
         
-        {/* Meta tags supplémentaires */}
+        {/* ✅ META TAGS POUR GOOGLE (renforcés) */}
         <meta property="og:image" content="/logo.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="ImmoBenin" />
         <meta name="twitter:image" content="/logo.png" />
       </head>
       <body className={`${inter.className} min-h-screen bg-white text-gray-900 font-sans selection:bg-brand selection:text-white`}>
