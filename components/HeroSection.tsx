@@ -125,7 +125,7 @@ export const Hero: React.FC = () => {
               style={{ transformStyle: 'preserve-3d' }}
             >
               <Image
-                src="/images/home/hero.jpg"
+                src="/images/home/hero.png"
                 alt="Belle maison au Bénin disponible à la location"
                 width={800}
                 height={1000}

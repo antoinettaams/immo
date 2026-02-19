@@ -256,7 +256,7 @@ export const ValuePropSection: React.FC = () => {
               aria-label="Famille heureuse utilisant ImmoBenin au Bénin"
             >
               <Image
-                src="/images/home/tresor.jpg"
+                src="/images/home/tresor.png"
                 alt="Famille heureuse utilisant les services ImmoBenin"
                 fill
                 className="object-cover"
