@@ -14,8 +14,9 @@ interface HostCTAProps {
 export const HostCTA: React.FC<HostCTAProps> = ({ className = '' }) => {
   const router = useRouter();
 
+  // MODIFICATION ICI : Redirige vers la page de connexion
   const handleHostClick = () => {
-    router.push('/publish');
+    router.push('/auth/login');
   };
 
   const handleLearnMoreClick = () => {
@@ -170,7 +171,7 @@ export const HostCTA: React.FC<HostCTAProps> = ({ className = '' }) => {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="https://i.postimg.cc/sf47ZR4L/Chat-GPT-Image-11-mars-2026-15-11-52.png" // À remplacer par votre image
+                src="https://i.postimg.cc/sf47ZR4L/Chat-GPT-Image-11-mars-2026-15-11-52.png"
                 alt="Exemple d'espace aménagé pour la location"
                 width={600}
                 height={800}

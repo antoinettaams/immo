@@ -48,7 +48,7 @@ export const Footer: React.FC = () => {
               <Button 
                 variant="primary"
                 size="md"
-                onClick={() => navigateWithScroll('/publish')}
+                onClick={() => navigateWithScroll('/auth/signup')}
                 className="w-full sm:w-auto justify-center"
               >
                 Devenir hôte

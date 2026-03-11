@@ -202,7 +202,7 @@ export const ValuePropSection: React.FC = () => {
       aria-labelledby="value-prop-title"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-ro.w items-stretch gap-8 lg:gap-12">
+        <div className="flex flex-col lg:flex-row items-stretch gap-8 lg:gap-12">
           
           {/* Texte et features */}
           <div className="lg:w-1/2 flex flex-col justify-center items-center lg:items-start text-center lg:text-left">

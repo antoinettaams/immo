@@ -14,7 +14,8 @@ export const Hero: React.FC = () => {
   };
 
   const handlePublishClick = (): void => {
-    router.push('/publish');
+    // MODIFICATION ICI : Redirige vers la page de connexion
+    router.push('/auth/signup');
   };
 
   return (

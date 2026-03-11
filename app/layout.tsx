@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
 import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -100,9 +98,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body className={`${inter.className} min-h-screen bg-white text-gray-900 font-sans selection:bg-brand selection:text-white`}>
-        <Header />
         <main>{children}</main>
-        <Footer />
       </body>
     </html>
   );

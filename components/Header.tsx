@@ -10,7 +10,14 @@ export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isAuthPage, setIsAuthPage] = useState<boolean>(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    // Vérifier si on est sur une page d'authentification
+    const authPaths = ['/auth/login', '/auth/signup', '/auth/forgot-password', '/auth/reinitialiser-mot-de-passe'];
+    setIsAuthPage(authPaths.includes(pathname));
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,16 +60,21 @@ export const Header: React.FC = () => {
   };
 
   const handleLogin = () => {
-    window.location.href = '/login';
+    window.location.href = '/auth/login';
   };
 
   const handleSignup = () => {
-    window.location.href = '/signup';
+    window.location.href = '/auth/signup';
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
   };
+
+  // Ne rien afficher sur les pages d'authentification
+  if (isAuthPage) {
+    return null;
+  }
 
   return (
     <header 
@@ -119,14 +131,6 @@ export const Header: React.FC = () => {
             aria-current={isActive('/search') ? 'page' : undefined}
           >
             Rechercher
-          </Link>
-          <Link 
-            href="/publish" 
-            className={`hover:text-brand transition-colors ${isActive('/publish') ? 'text-brand font-semibold' : ''}`}
-            onClick={handleNavClick}
-            aria-current={isActive('/publish') ? 'page' : undefined}
-          >
-            Devenir hôte
           </Link>
           <Link 
             href="/contact" 
@@ -282,14 +286,6 @@ export const Header: React.FC = () => {
                 Rechercher
               </Link>
               <Link 
-                href="/publish" 
-                className={`py-2 hover:text-brand transition-colors ${isActive('/publish') ? 'text-brand font-semibold' : ''}`}
-                onClick={handleNavClick}
-                aria-current={isActive('/publish') ? 'page' : undefined}
-              >
-                Devenir hôte
-              </Link>
-              <Link 
                 href="/contact" 
                 className={`py-2 hover:text-brand transition-colors ${isActive('/contact') ? 'text-brand font-semibold' : ''}`}
                 onClick={handleNavClick}
@@ -299,13 +295,23 @@ export const Header: React.FC = () => {
               </Link>
 
               <Link 
-                  href="/login"
-                  className="flex items-center gap-3 py-3 text-gray-700 hover:text-brand transition-colors"
-                  onClick={handleNavClick}
-                >
-                  <LogIn className="w-5 h-5 text-brand" />
-                  <span className="font-medium">Se connecter</span>
+                href="/auth/signup"
+                className="flex items-center gap-3 py-3 text-gray-700 hover:text-brand transition-colors"
+                onClick={handleNavClick}
+              >
+                <UserPlus className="w-5 h-5 text-brand" />
+                <span className="font-medium">S'inscrire</span>
               </Link>
+
+              <Link 
+                href="/auth/login"
+                className="flex items-center gap-3 py-3 text-gray-700 hover:text-brand transition-colors"
+                onClick={handleNavClick}
+              >
+                <LogIn className="w-5 h-5 text-brand" />
+                <span className="font-medium">Se connecter</span>
+              </Link>
+
               {/* Options supplémentaires */}
               <div className="flex flex-col gap-2 pt-4 mt-2 border-t border-gray-100">
                 <button 

@@ -46,14 +46,14 @@ export const StickyNav: React.FC = () => {
         </Link>
 
         <Link
-          href="/publish"
+          href="/auth/signup"
           className={`flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-5 lg:px-15 py-2.5 md:py-3 rounded-full md:rounded-full font-bold transition-colors flex-1 min-w-0 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white ${
-            pathname === '/publish'
+            pathname === '/auth/signup'
               ? 'bg-gray-100 text-gray-900 focus:ring-gray-900'
               : 'bg-gray-900 text-white hover:bg-gray-800 focus:ring-gray-900'
           }`}
           aria-label="Publier un bien à louer"
-          aria-current={pathname === '/publish' ? 'page' : undefined}
+          aria-current={pathname === '/auth/signup' ? 'page' : undefined}
         >
           <PlusCircle 
             className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" 
