@@ -86,21 +86,20 @@ export const Header: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between relative">
         {/* Logo avec Image */}
         <Link 
-          href="/" 
-          className="flex items-center gap-2 cursor-pointer group z-50"
-          onClick={handleNavClick}
-          aria-label="Accueil - Retour à la page d'accueil"
-        >
-          {/* ✅ REMPLACÉ PAR Image */}
-         <Image
+  href="/" 
+  className="flex items-center gap-2 cursor-pointer group z-50"
+  onClick={handleNavClick}
+  aria-label="Accueil - Retour à la page d'accueil"
+>
+  <Image
     src="/logo.png"
     alt="ImmoBenin Logo"
     width={90}
     height={70}
-    className="w-70 h-10 object-contain group-hover:scale-110 transition-transform duration-300"
+    className="w-auto h-10 sm:h-12 md:h-14 lg:h-16 xl:h-20 object-contain group-hover:scale-110 transition-transform duration-300"
     priority
   />
-        </Link>
+</Link>
 
         {/* Desktop Navigation avec Link */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700" aria-label="Navigation principale">
