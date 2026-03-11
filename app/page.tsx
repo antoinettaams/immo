@@ -1,5 +1,6 @@
 "use client";
 import { Hero } from '@/components/HeroSection';
+import { HostCTA } from '@/components/HostCta';
 import { CategoriesSection, ValuePropSection } from '@/components/Features';
 import { HowItWorks } from '@/components/HowItWorks';
 import { OwnerCTA } from '@/components/CTAHost';
@@ -13,6 +14,7 @@ export default function HomePage() {
     <main className="min-h-screen">
       <Header /> 
       <Hero />
+      <HostCTA/>
       <CategoriesSection />
       <ValuePropSection />
       <HowItWorks />
