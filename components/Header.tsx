@@ -96,7 +96,7 @@ export const Header: React.FC = () => {
     alt="ImmoBenin Logo"
     width={90}
     height={70}
-    className="w-auto h-10 sm:h-12 md:h-14 lg:h-16 xl:h-20 object-contain group-hover:scale-110 transition-transform duration-300"
+    className="w-auto h-10 sm:h-10 md:h-12 lg:h-16 xl:h-20 object-contain group-hover:scale-110 transition-transform duration-300"
     priority
   />
 </Link>
