@@ -90,7 +90,7 @@ export const HostCTA: React.FC<HostCTAProps> = ({ className = '' }) => {
               Vous avez un espace inoccupé ?
             </h2>
 
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
               Que ce soit une <span className="font-semibold text-brand">chambre d'amis</span>, 
               un <span className="font-semibold text-brand">bureau</span> ou même 
               une <span className="font-semibold text-brand">salle</span> pour vos événements, 

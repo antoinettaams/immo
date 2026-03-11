@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Menu, Globe, UserCircle, X } from 'lucide-react';
+import { Menu, Globe, UserCircle, X, LogIn, UserPlus, Settings, HelpCircle, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation'; 
@@ -8,6 +8,8 @@ import { usePathname } from 'next/navigation';
 export const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -15,10 +17,8 @@ export const Header: React.FC = () => {
       setScrolled(window.scrollY > 50);
     };
     
-    // Vérifier si on est côté client
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', handleScroll);
-      // Déclencher une première vérification
       handleScroll();
       
       return () => {
@@ -27,17 +27,41 @@ export const Header: React.FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (scrolled) {
+      setIsUserMenuOpen(false);
+    }
+  }, [scrolled]);
+
   const handleNavClick = (): void => {
     setIsMobileMenuOpen(false);
+    setIsUserMenuOpen(false);
   };
 
-  // Fonction pour vérifier si un lien est actif
+  const toggleUserMenu = (): void => {
+    setIsUserMenuOpen(!isUserMenuOpen);
+    if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+  };
+
   const isActive = (path: string): boolean => {
     return pathname === path;
   };
 
   const handleMobileMenuToggle = (): void => {
     setIsMobileMenuOpen((prev) => !prev);
+    if (isUserMenuOpen) setIsUserMenuOpen(false);
+  };
+
+  const handleLogin = () => {
+    window.location.href = '/login';
+  };
+
+  const handleSignup = () => {
+    window.location.href = '/signup';
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
   };
 
   return (
@@ -55,33 +79,29 @@ export const Header: React.FC = () => {
           aria-label="Accueil - Retour à la page d'accueil"
         >
           <div className="text-brand group-hover:scale-110 transition-transform duration-300">
-             <svg 
-  width="32" 
-  height="32" 
-  viewBox="0 0 100 100" 
-  fill="none" 
-  xmlns="http://www.w3.org/2000/svg"
-  aria-hidden="true"
->
-  {/* Forme principale (Maison / Pin) */}
-  <path 
-    d="M50 5L15 40V70C15 75 20 80 50 95C80 80 85 75 85 70V40L50 5Z" 
-    fill="#FF385C" 
-  />
-  
-  {/* Cercle central */}
-  <circle cx="50" cy="55" r="12" fill="white" />
-  
-  {/* Fenêtre dans le toit */}
-  <rect x="44" y="24" width="12" height="10" fill="white" />
-  <line x1="50" y1="24" x2="50" y2="34" stroke="#FF385C" strokeWidth="1.5" />
-  <line x1="44" y1="29" x2="56" y2="29" stroke="#FF385C" strokeWidth="1.5" />
-</svg>
+            <svg 
+              width="32" 
+              height="32" 
+              viewBox="0 0 100 100" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path 
+                d="M50 5L15 40V70C15 75 20 80 50 95C80 80 85 75 85 70V40L50 5Z" 
+                fill="#FF385C" 
+              />
+              <circle cx="50" cy="55" r="12" fill="white" />
+              <rect x="44" y="24" width="12" height="10" fill="white" />
+              <line x1="50" y1="24" x2="50" y2="34" stroke="#FF385C" strokeWidth="1.5" />
+              <line x1="44" y1="29" x2="56" y2="29" stroke="#FF385C" strokeWidth="1.5" />
+            </svg>
           </div>
           <span className="text-xl font-extrabold tracking-tight text-gray-900 group-hover:text-brand transition-colors">
-                  ImmoBenin
-                </span>
+            ImmoBenin
+          </span>
         </Link>
+
         {/* Desktop Navigation avec Link */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700" aria-label="Navigation principale">
           <Link 
@@ -120,7 +140,7 @@ export const Header: React.FC = () => {
 
         <div className="flex items-center gap-2 z-50">
           {/* Desktop User Menu */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-2 relative">
             <button 
               className="flex items-center gap-1 px-3 py-2 rounded-full hover:bg-gray-100 transition-colors text-sm font-medium"
               aria-label="Changer la langue"
@@ -129,14 +149,91 @@ export const Header: React.FC = () => {
               <Globe className="w-4 h-4" />
               <span>FR</span>
             </button>
-             <button 
-              className="flex items-center gap-2 border border-gray-300 rounded-full pl-3 pr-2 py-1.5 hover:shadow-md transition-shadow bg-white"
-              aria-label="Menu utilisateur"
-              type="button"
-            >
-              <Menu className="w-4 h-4 text-gray-600" />
-              <UserCircle className="w-8 h-8 text-gray-500 fill-current" />
-            </button>
+            
+            {/* Bouton menu utilisateur avec modale */}
+            <div className="relative">
+              <button 
+                onClick={toggleUserMenu}
+                className="flex items-center gap-2 border border-gray-300 rounded-full pl-3 pr-2 py-1.5 hover:shadow-md transition-shadow bg-white"
+                aria-label="Menu utilisateur"
+                aria-expanded={isUserMenuOpen}
+                type="button"
+              >
+                <Menu className="w-4 h-4 text-gray-600" />
+                <UserCircle className="w-8 h-8 text-gray-500 fill-current" />
+              </button>
+
+              {/* Modale utilisateur desktop */}
+              <AnimatePresence>
+                {isUserMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden"
+                  >
+                    <div className="py-2">
+                      {!isLoggedIn ? (
+                        <>
+                          <button
+                            onClick={handleLogin}
+                            className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 text-gray-700 hover:text-brand transition-colors"
+                          >
+                            <LogIn className="w-5 h-5" />
+                            <span className="font-medium">Se connecter</span>
+                          </button>
+                          <button
+                            onClick={handleSignup}
+                            className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 text-gray-700 hover:text-brand transition-colors border-t border-gray-100"
+                          >
+                            <UserPlus className="w-5 h-5" />
+                            <span className="font-medium">Créer un compte</span>
+                          </button>
+                          <div className="border-t border-gray-100 my-1"></div>
+                          <Link 
+                            href="/contact"
+                            className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand transition-colors"
+                            onClick={handleNavClick}
+                          >
+                            <HelpCircle className="w-5 h-5" />
+                            <span className="font-medium">Aide et support</span>
+                          </Link>
+                        </>
+                      ) : (
+                        <>
+                          <div className="px-4 py-3 border-b border-gray-100">
+                            <p className="font-medium text-gray-900">John Doe</p>
+                            <p className="text-sm text-gray-500">john@example.com</p>
+                          </div>
+                          <button
+                            className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 text-gray-700 hover:text-brand transition-colors"
+                          >
+                            <Settings className="w-5 h-5" />
+                            <span className="font-medium">Mon profil</span>
+                          </button>
+                          <Link 
+                            href="/contact"
+                            className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 text-gray-700 hover:text-brand transition-colors"
+                            onClick={handleNavClick}
+                          >
+                            <HelpCircle className="w-5 h-5" />
+                            <span className="font-medium">Aide</span>
+                          </Link>
+                          <button
+                            onClick={handleLogout}
+                            className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 text-red-600 hover:text-red-700 transition-colors border-t border-gray-100"
+                          >
+                            <LogOut className="w-5 h-5" />
+                            <span className="font-medium">Déconnexion</span>
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -166,7 +263,8 @@ export const Header: React.FC = () => {
             aria-modal="true"
             aria-label="Menu mobile" 
           >
-            <nav className="flex flex-col p-6 gap-6 text-lg font-medium text-gray-800">
+            <nav className="flex flex-col p-6 gap-4 text-lg font-medium text-gray-800">
+              {/* Liens de navigation */}
               <Link 
                 href="/" 
                 className={`py-2 hover:text-brand transition-colors ${isActive('/') ? 'text-brand font-semibold' : ''}`}
@@ -199,15 +297,34 @@ export const Header: React.FC = () => {
               >
                 Contact
               </Link>
-               <hr className="border-gray-100" />
-              <div className="flex   gap-6 pt-2">
-                 <button 
-                   className="flex items-center gap-2 text-sm text-gray-500"
-                   type="button"
-                   aria-label="Changer la langue"
-                 >
-                    <Globe className="w-4 h-4" /> FR
-                 </button>
+
+              <Link 
+                  href="/login"
+                  className="flex items-center gap-3 py-3 text-gray-700 hover:text-brand transition-colors"
+                  onClick={handleNavClick}
+                >
+                  <LogIn className="w-5 h-5 text-brand" />
+                  <span className="font-medium">Se connecter</span>
+              </Link>
+              {/* Options supplémentaires */}
+              <div className="flex flex-col gap-2 pt-4 mt-2 border-t border-gray-100">
+                <button 
+                  className="flex items-center gap-3 py-2 text-sm text-gray-600 hover:text-brand transition-colors"
+                  type="button"
+                  aria-label="Changer la langue"
+                >
+                  <Globe className="w-5 h-5" /> 
+                  <span>Français</span>
+                </button>
+                <Link 
+                  href="/contact"
+                  className="flex items-center gap-3 py-2 text-sm text-gray-600 hover:text-brand transition-colors"
+                  onClick={handleNavClick}
+                  aria-label="Aide et support"
+                >
+                  <HelpCircle className="w-5 h-5" /> 
+                  <span>Aide et support</span>
+                </Link>
               </div>
             </nav>
           </motion.div>
