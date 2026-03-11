@@ -9,5 +9,5 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       <main>{children}</main>
       <Footer />
     </>
-  );
-}
+  ); 
+} 

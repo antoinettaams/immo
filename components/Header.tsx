@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, Globe, UserCircle, X, LogIn, UserPlus, Settings, HelpCircle, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image'; // ← AJOUTER CET IMPORT
 import { usePathname } from 'next/navigation'; 
 
 export const Header: React.FC = () => {
@@ -83,35 +84,22 @@ export const Header: React.FC = () => {
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between relative">
-        {/* Logo */}
+        {/* Logo avec Image */}
         <Link 
           href="/" 
           className="flex items-center gap-2 cursor-pointer group z-50"
           onClick={handleNavClick}
           aria-label="Accueil - Retour à la page d'accueil"
         >
-          <div className="text-brand group-hover:scale-110 transition-transform duration-300">
-            <svg 
-              width="32" 
-              height="32" 
-              viewBox="0 0 100 100" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path 
-                d="M50 5L15 40V70C15 75 20 80 50 95C80 80 85 75 85 70V40L50 5Z" 
-                fill="#FF385C" 
-              />
-              <circle cx="50" cy="55" r="12" fill="white" />
-              <rect x="44" y="24" width="12" height="10" fill="white" />
-              <line x1="50" y1="24" x2="50" y2="34" stroke="#FF385C" strokeWidth="1.5" />
-              <line x1="44" y1="29" x2="56" y2="29" stroke="#FF385C" strokeWidth="1.5" />
-            </svg>
-          </div>
-          <span className="text-xl font-extrabold tracking-tight text-gray-900 group-hover:text-brand transition-colors">
-            ImmoBenin
-          </span>
+          {/* ✅ REMPLACÉ PAR Image */}
+         <Image
+    src="/logo.png"
+    alt="ImmoBenin Logo"
+    width={90}
+    height={70}
+    className="w-70 h-10 object-contain group-hover:scale-110 transition-transform duration-300"
+    priority
+  />
         </Link>
 
         {/* Desktop Navigation avec Link */}
