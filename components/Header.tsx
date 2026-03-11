@@ -92,13 +92,13 @@ export const Header: React.FC = () => {
   aria-label="Accueil - Retour à la page d'accueil"
 >
   <Image
-    src="/logo.png"
-    alt="ImmoBenin Logo"
-    width={90}
-    height={70}
-    className="w-auto h-10 sm:h-10 md:h-12 lg:h-16 xl:h-20 object-contain group-hover:scale-110 transition-transform duration-300"
-    priority
-  />
+  src="/logo.png"
+  alt="ImmoBenin Logo"
+  width={90}
+  height={70}
+  className="w-auto h-8 sm:h-10 md:h-12 lg:h-16 xl:h-20 object-contain group-hover:scale-110 transition-transform duration-300"
+  priority
+/>
 </Link>
 
         {/* Desktop Navigation avec Link */}
